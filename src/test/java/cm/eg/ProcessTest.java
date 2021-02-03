@@ -11,6 +11,7 @@ import cm.eg.model.CompareTask;
 import cm.eg.model.WordFreq;
 import cm.eg.util.TextUtil;
 
+import cn.hutool.core.io.FileUtil;
 import org.apache.tika.exception.TikaException;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class ProcessTest {
 	 */
 	@Test
 	public void demo1() throws IOException, TikaException {
-		Article article = TextUtil.getArticle(new File(txtDir + "小王子.txt"));
+		Article article = TextUtil.getArticle(FileUtil.file(txtDir+"loan.txt"));
 		List<WordFreq> wfList = article.getWordFreqList();
 
 		System.out.println("高频词排名:");
@@ -46,8 +47,8 @@ public class ProcessTest {
 	@Test
 	public void demo2() throws IOException, TikaException {
 		// TODO 涉及读写可用多线程FutureTask优化。
-		Article a1 = TextUtil.getArticle(new File(docDir + "Li_info2.doc"));
-		Article a2 = TextUtil.getArticle(new File(docDir + "Wu_info2.doc"));
+		Article a1 = TextUtil.getArticle(FileUtil.file(docDir + "Li_info2.doc"));
+		Article a2 = TextUtil.getArticle(FileUtil.file(docDir + "Wu_info2.doc"));
 		CompareTask task = new CompareTask(a1, a2);
 		task.execute();
 		CompareReport report = task.getCompareReport();
